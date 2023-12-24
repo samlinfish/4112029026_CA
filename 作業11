@@ -1,0 +1,29 @@
+from keras.datasets import mnist
+from sklearn.cluster import KMeans
+import numpy as numpy
+
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
+
+X_train = X_train.reshape(len(X_train), -1)
+X_test = X_test.reshape(len(X_test), -1)
+
+X_train = X_train.astype('float32')/255.
+X_train = X_test.astype('float32')/255.
+
+kmeans = KMeans(n_cluster=10, random_state=42)
+
+kmeans.fit(X_train)
+
+import matplotlib.pyplot as plt
+
+num_samples = 10
+selected_images = X_train[:num_samples]
+selected_labels = train_labels[:num_samples]
+
+for i in range(3):
+    plt.figure(figsize=(20, 4))
+    for index, (image, label) in enumerate(zip(selected_images, selected_labels)):
+        plt.subplot(1, num_samples, index + 1)
+        plt.imshow(image.reshape(28,28), cmap=plt.cm.gray)
+        plt.title(f'Cluster: {label}')
+    plt.show()
